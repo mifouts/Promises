@@ -24,7 +24,7 @@
 const statusRef = document.querySelector(".status");
 
 function getSubscriptionStatus() {
-    return new Promise((resolve, reject) => {
+   return new Promise((resolve, reject) => {
         setTimeout(() => {
         resolve("VIP")
         }, 2000);
@@ -32,8 +32,30 @@ function getSubscriptionStatus() {
 }
 
 async function main() {
-const status = (await getSubscriptionStatus())
+const status = await getSubscriptionStatus()
 statusRef.innerHTML = status
+}
+
+//main();
+
+
+function getVideo(subscriptionStatus){
+return new Promise((resolve, reject) => {
+    if (subscriptionStatus === "VIP") 
+    {resolve("show video")}
+    else if (subscriptionStatus === "FREE") {
+        resolve("show trailer")
+    }
+    else {
+        reject("no video")
+    }
+});
+}
+
+async function main() {
+const status = getSubscriptionStatus();
+statusRef.innerHTML = status;
+console.log(await getVideo(status))
 }
 
 main();
